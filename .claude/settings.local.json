@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "WebSearch",
+      "WebFetch(domain:developers.notion.com)",
+      "Bash(claude mcp --help:*)",
+      "mcp__notion__notion-search",
+      "mcp__notion__notion-fetch",
+      "Bash(python scripts/content_analyzer.py:*)",
+      "Bash(ls:*)",
+      "Bash(chmod:*)",
+      "Bash(python scripts/url_converter.py:*)",
+      "Bash(python scripts/image_processor.py:*)"
+    ]
+  }
+}
