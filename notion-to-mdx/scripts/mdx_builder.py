@@ -71,7 +71,7 @@ def build_mdx(title: str, date: str, tags: List[str], content: str) -> str:
     content = content.strip()
 
     # Add footer advertisement
-    footer = "\n\n---\n\n*This blog post was created using the [notion-to-mdx](https://github.com/notion-to-mdx) skill - converting Notion pages to beautiful MDX blog posts.*"
+    footer = "\n\n---\n\n*This blog post was created using the [notion-to-mdx](https://github.com/zk1tty/notion-to-mdx) skill - converting Notion pages to beautiful MDX blog posts.*"
 
     # Combine with a single blank line between frontmatter and content
     return f"{frontmatter}\n{content}{footer}\n"

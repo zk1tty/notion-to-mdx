@@ -14,51 +14,61 @@ This tutorial teaches you how to build a Claude Code skill that:
 ## Setting Up Notion MCP with Claude Code
 
 ### Prerequisites
-- Claude Code installed
+- Claude Code CLI installed
 - A Notion account
 - Python 3.7+
 
-### Step 1: Create a Notion Integration
+### Important: Claude Code vs Claude Desktop Authentication
 
-1. Go to [https://www.notion.so/profile/integrations](https://www.notion.so/profile/integrations)
-2. Click "New integration"
-3. Give your integration a name (e.g., "Claude Code MCP")
-4. Select the workspace you want to connect
-5. Set the capabilities you need (Read content, Update content, etc.)
-6. Click "Submit" to create the integration
-7. Copy the "Internal Integration Token" - you'll need this for authentication
+**Note:** Authentication for Claude Code CLI is different from Claude Desktop or Claude.ai web interface. Each uses separate authentication systems and credentials. This guide is specifically for **Claude Code CLI**.
 
-### Step 2: Share Pages with Your Integration
-
-For the integration to access your Notion pages:
-1. Open the Notion page you want to access
-2. Click the "..." menu in the top right
-3. Scroll down and click "Add connections"
-4. Select your integration from the list
-
-### Step 3: Configure Claude Code MCP
+### Step 1: Add Notion MCP Server
 
 Add the Notion MCP server to your Claude Code configuration:
 
-```json
-{
-  "mcpServers": {
-    "notion": {
-      "command": "npx",
-      "args": ["-y", "@anthropic-ai/notion-mcp-server"],
-      "env": {
-        "NOTION_API_KEY": "your-integration-token-here"
-      }
-    }
-  }
-}
+```bash
+claude mcp add --transport http notion https://mcp.notion.com/mcp
 ```
 
-Replace `your-integration-token-here` with the token you copied in Step 1.
+This adds the Notion MCP server but doesn't authenticate yet.
 
-### Step 4: Verify the Connection
+### Step 2: Authenticate with Notion
 
-Restart Claude Code and verify the Notion MCP is connected by asking:
+![Connecting Claude Code to Notion MCP](assets/conenct%20Claude%20Code%20to%20Notion%20MCP.gif)
+
+To connect Claude Code to your Notion workspace, run the authentication command:
+
+```bash
+/mcp
+```
+
+This will:
+1. Display a list of MCP servers that need authentication
+2. Select "notion" from the list and press Enter
+3. Automatically open a browser window
+4. Prompt you to log in to your Notion account
+5. Ask you to select which workspace to connect
+6. Complete the OAuth authentication flow
+
+After successful authentication, you'll see:
+```
+Authentication successful. Reconnected to notion.
+```
+
+### Step 3: Verify the Connection
+
+Verify the Notion MCP is connected:
+
+```bash
+claude mcp list
+```
+
+You should see:
+```
+notion: https://mcp.notion.com/mcp (HTTP) - ✓ Connected
+```
+
+You can also verify by asking Claude Code:
 ```
 Can you list my Notion pages?
 ```
